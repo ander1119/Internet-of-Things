@@ -33,12 +33,13 @@ class Driver(Node):
         elif self.dis / 3.6 >= 7:
             msg.throttle = 100
         self.pub.publish(msg)
+        print('send cmd')
 
     def bounding_boxes_callback(self, data):
         #print('There are %d bounding boxes.' % len(data.boxes))
         for box in data.boxes:
             #print('central of box is at %f %f %f.' % (box.centroid.x, box.centroid.y, box.centroid.z))
-            if box.centroid.y <= 0 and box.centroid.y >= -1:
+            if box.centroid.x >= 0 and box.centroid.y <= 0 and box.centroid.y >= -1:
                 print('front car is at %f %f %f' % (box.centroid.x, box.centroid.y, box.centroid.z))
                 self.dis = box.centroid.x
 
